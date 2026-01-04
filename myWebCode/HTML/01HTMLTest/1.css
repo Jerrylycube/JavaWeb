@@ -1,0 +1,28 @@
+h1{
+    color: black;
+}
+span{
+    color: aqua;
+}
+#time{
+    color: grey;
+}
+a:hover{
+    color: red;
+}
+a{
+    color: #53535E;
+    text-decoration: dashed;
+    font-size: 10px;
+}
+p{
+    line-height: 45px;
+    text-indent: 35px;
+}
+#centor{
+    width: 65%;
+    margin: 0 auto ;
+}
+#video1{
+    text-align: center;
+}
