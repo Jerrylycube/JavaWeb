@@ -36,4 +36,7 @@ public interface EmpMapper {
 	
 	@Select("select * from emp where id = #{id}")
 	Emp findById(Integer id);
+
+	@Select("select * from emp where username = #{username} and password = #{password}")
+    Emp getByUsernameAndPassword(Emp emp);
 }

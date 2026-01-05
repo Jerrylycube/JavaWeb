@@ -42,4 +42,11 @@ public interface EmpService {
 	 * @return
 	 */
 	Emp findById(Integer id);
+
+	/**
+	 * 登录校验
+	 * @param emp
+	 * @return
+	 */
+    Emp login(Emp emp);
 }

@@ -62,5 +62,12 @@ public class EmpServiceImpl implements EmpService {
 		Emp emp = empMapper.findById(id);
 		return emp;
 	}
-	
+
+	@Override
+	public Emp login(Emp emp) {
+		Emp loginEmp = empMapper.getByUsernameAndPassword(emp);
+		//返回查询结果给Controller
+		return loginEmp;
+	}
+
 }
