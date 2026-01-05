@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/itcast_system_springboot.iml" filepath="$PROJECT_DIR$/itcast_system_springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/itcast.iml" filepath="$PROJECT_DIR$/.idea/itcast.iml" />
     </modules>
   </component>
 </project>

@@ -27,7 +27,6 @@ public class AliOSSUtils {
 	@Autowired
 	private AilOSSproperties ailOSSproperties;
 	
-	
 	public AliOSSUtils() throws ClientException {
 	}
 	//https://web-ticast.oss-cn-guangzhou.aliyuncs.com/test.docx
