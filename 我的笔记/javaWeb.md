@@ -1,3 +1,105 @@
+
+
+# javaWeb项目总结
+
+## 环境方面
+
+需要idea专业版
+
+mysql8
+
+maven依赖管理
+
+**注意一些配置需要在环境变量上添加**,比如oss的账户和密码
+
+## 架构方面
+
+采用springboot+vue+mysql进行,
+
+其中后端通过Mbatis连接到数据库,执行数据库操作
+
+前端通过axios来实现异步拉取后端数据
+
+前端和后端均遵循api接口文档,一般是restful规范,结果返回为Result工具类
+
+前端发起请求,后端
+
+## 较难的部分
+
+### 分页查询
+
+使用pagehelper依赖,从而更简便的编写,本质上是select * from emp limit pageSize*(page-1),pageSize
+
+### 文件上传
+
+通过阿里云提供的阿里云工具类来实现
+
+使用云端上传,oss对象存储
+
+其实就是由后端上传到阿里云的oss对象存储,oss会提供一个url,这个url是可以通过bucket和oss的地区以及上传文件的名字来组成的
+
+返回这个url到前端,前端就会通过image标签进行渲染到我们的前端
+
+### 环境配置
+
+通过yaml文件进行配置
+
+编写时使用把需要注入的封装成一个类,并标上注解
+
+> 实体类
+
+```
+@Data
+@Component
+@ConfigurationProperties(prefix = "aliyun.oss")
+public class AilOSSproperties {
+	private String bucketName;
+	private String endpoint;
+	private String region;
+}
+
+```
+
+> yaml
+
+```
+aliyun:
+  oss:
+    region: cn-guangzhou
+    endpoint: https://oss-cn-guangzhou.aliyuncs.com
+    bucketName: web-ticast
+```
+
+
+
+# git操作
+
+### **一、 生成密钥 (SSH Key)**
+
+用于免密安全访问远程仓库：
+
+1. **生成**：执行 `ssh-keygen -t rsa -C "邮箱"`，连按三次回车。
+2. **获取**：执行 `cat ~/.ssh/id_rsa.pub` 复制公钥。
+3. **配置**：在 Gitee/GitHub 的“设置”->“SSH公钥”中粘贴并保存。
+4. **验证**：执行 `ssh -T git@gitee.com` 确认连接成功。
+
+### **二、 本地与远程连接**
+
+建立本地文件夹与云端仓库的关联：
+
+1. **已有连接**：`git remote -v` 查看当前关联的远程地址。
+2. **添加连接**：`git remote add origin <远程仓库地址>`。
+3. **建立轨道**：首次推送执行 `git push -u origin master`，之后只需 `git push`。
+4. **更换地址**：`git remote set-url origin <新地址>`。
+
+### **三、 Git 基本操作 (日常流程)**
+
+1. **同步**：`git pull` —— 每天开始写代码前，先拉取远程最新更新。
+2. **查看**：`git status` —— 随时确认哪些文件被修改了。
+3. **暂存**：`git add .` —— 将修改放入“待提交”暂存区。
+4. **保存**：`git commit -m "说明文字"` —— 提交到本地仓库，记录改动点。
+5. **推送**：`git push` —— 将本地代码同步到远程仓库。
+
 # Web标准
 
 HTML:网页结构（图片，文字，视频等等）
@@ -3519,6 +3621,20 @@ public class Result {
 ### 开发流程
 
 ![image-20260102103658081](image/image-20260102103658081.png)
+
+### 三层架构
+
+#### Controller层
+
+编写接口api,接收前端的请求,并通过Service层进行数据处理
+
+#### Service层
+
+对前端发来的数据进行处理并向DAO层进行请求数据库信息
+
+#### Dao层
+
+使用SQL语句或者xml表映射的方式实现动态SQL来操作数据库信息,返回给Service层
 
 ### 文件上传
 
