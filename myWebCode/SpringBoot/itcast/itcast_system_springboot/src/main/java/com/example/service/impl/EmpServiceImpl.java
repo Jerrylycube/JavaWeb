@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.annotion.Log;
 import com.example.mapper.EmpMapper;
 import com.example.pojo.Emp;
 import com.example.pojo.PageBean;
@@ -18,6 +19,7 @@ public class EmpServiceImpl implements EmpService {
 	@Autowired
 	private EmpMapper empMapper;
 	
+	@Log
 	@Override
 	public PageBean findInPage(Integer page, Integer pageSize, Short gender, String name, LocalDate begin, LocalDate end) {
 //		Long total = empMapper.fingInPageTotal();
@@ -35,6 +37,7 @@ public class EmpServiceImpl implements EmpService {
 		return pageBean;
 	}
 	
+	@Log
 	@Override
 	public void delete(List<Integer> ids) {
 //		for (int i = 0; i < ids.length; i++) {
@@ -44,6 +47,7 @@ public class EmpServiceImpl implements EmpService {
 		
 	}
 	
+	@Log
 	@Override
 	public void add(Emp emp) {
 		emp.setCreateTime(LocalDateTime.now());
@@ -51,23 +55,25 @@ public class EmpServiceImpl implements EmpService {
 		empMapper.add(emp);
 	}
 	
+	@Log
 	@Override
 	public void update(Emp emp) {
 		emp.setUpdateTime(LocalDateTime.now());
 		empMapper.update(emp);
 	}
 	
+	@Log
 	@Override
 	public Emp findById(Integer id) {
 		Emp emp = empMapper.findById(id);
 		return emp;
 	}
-
+	
 	@Override
 	public Emp login(Emp emp) {
 		Emp loginEmp = empMapper.getByUsernameAndPassword(emp);
 		//返回查询结果给Controller
 		return loginEmp;
 	}
-
+	
 }

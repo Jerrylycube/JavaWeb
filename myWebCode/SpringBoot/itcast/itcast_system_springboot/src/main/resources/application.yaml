@@ -21,3 +21,8 @@ aliyun:
     region: cn-guangzhou
     endpoint: https://oss-cn-guangzhou.aliyuncs.com
     bucketName: web-ticast
+
+#spring事务管理日志
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
