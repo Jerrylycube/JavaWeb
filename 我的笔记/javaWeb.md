@@ -14,6 +14,8 @@ maven依赖管理
 
 ## 架构方面
 
+![img](javaWeb.assets/resize,m_lfit,limit_1,h_1080.png)
+
 采用springboot+vue+mysql进行,
 
 其中后端通过Mbatis连接到数据库,执行数据库操作
@@ -21,8 +23,6 @@ maven依赖管理
 前端通过axios来实现异步拉取后端数据
 
 前端和后端均遵循api接口文档,一般是restful规范,结果返回为Result工具类
-
-前端发起请求,后端
 
 ## 较难的部分
 
@@ -1537,6 +1537,12 @@ Resourse,与上面类似,也是指定名字,但这个时候得删去Component以
 ![image-20251126203932636](image/image-20251126203932636.png)
 
 ![image-20251126204145522](image/image-20251126204145522.png)
+
+## 原理
+
+### 配置文件优先级
+
+![image-20260107133653315](javaWeb.assets/image-20260107133653315.png)
 
 # Mysql
 
@@ -3683,7 +3689,7 @@ public class Result {
 
 ### 配置文件
 
-
+properties>yaml>yml
 
 #### yml配置文件
 
@@ -4884,3 +4890,66 @@ public class LogAspect {
 
 > 代码实现细节： 获取request对象，从请求头中获取到jwt令牌，解析令牌获取出当前用户的id。
 
+
+
+# Web后端开发大总结
+
+到此基于SpringBoot进行web后端开发的相关知识我们已经学习完毕了。下面我们一起针对这段web课程做一个总结。
+
+我们来回顾一下关于web后端开发，我们都学习了哪些内容，以及每一块知识，具体是属于哪个框架的。
+
+web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。
+
+![image-20230114180044897](javaWeb.assets/image-20230114180044897.png)
+
+> 在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。
+
+
+
+如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。
+
+![image-20230114191737227](javaWeb.assets/image-20230114191737227.png)
+
+
+
+而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。
+
+> 所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。
+>
+> 而DI依赖注入指的是容器为程序提供运行时所需要的资源。
+
+
+
+除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。
+
+![image-20230114192921673](javaWeb.assets/image-20230114192921673.png)
+
+
+
+我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？
+
+![image-20230114193609782](javaWeb.assets/image-20230114193609782.png)
+
+> Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。
+>
+> JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。
+>
+> IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。
+>
+> Mybatis就是一个持久层的框架，是用来操作数据库的。
+
+
+
+在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC
+
+![image-20230114195143418](javaWeb.assets/image-20230114195143418.png)
+
+> SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。
+
+
+
+外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。
+
+基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。
+
+到此我们web后端开发的内容就已经全部讲解结束了。
