@@ -1,0 +1,12 @@
+**/target/
+.idea
+*.iml
+*.class
+*Test.java
+**/test/
+*.rar
+*.zip
+*.exe
+*.jar
+苍穹外卖/资料.rar
+苍穹外卖/资料
