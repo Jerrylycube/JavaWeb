@@ -70,6 +70,22 @@ aliyun:
     bucketName: web-ticast
 ```
 
+## 遇见的通用问题
+
+### 端口占用
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+**找到对应的pid号,去任务管理器个它停用**
+
+****
+
+```
+netstat -ano | findstr :8080
+```
+
 
 
 # git操作
@@ -1629,6 +1645,8 @@ public class CommonConfig {
 
 
 ## 启动与链接
+
+可以使用idea连接,译码规则选择utf8mb4_bin
 
 MySQL服务器启动完毕后，然后再使用如下指令，来连接MySQL服务器：
 
