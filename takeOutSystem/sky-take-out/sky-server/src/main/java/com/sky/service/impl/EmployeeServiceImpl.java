@@ -5,7 +5,6 @@ import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
-import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 
 @Service
 @Slf4j//日志打印
@@ -78,17 +76,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = new Employee();
 		//对象属性拷贝
 		BeanUtils.copyProperties(employeeDTO, employee);
-		//使用ThreadLoacl中的get方法获取当前登录用户的id
-		//这个在拦截器的时候就已经存储好了
-		Long empId = BaseContext.getCurrentId();
 		//设置账号的状态，默认正常状态 1表示正常 0表示锁定
 		employee.setStatus(StatusConstant.ENABLE);
-		employee.setCreateTime(LocalDateTime.now());
-		employee.setUpdateTime(LocalDateTime.now());
-		
-		//设置创建人和更新人id
-		employee.setCreateUser(empId);
-		employee.setUpdateUser(empId);
 		
 		//设置默认密码 123456,使用MD5进行加密
 		//使用常量封装,便于整体维护
@@ -111,8 +100,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = Employee.builder()
 				.status(status)
 				.id(id)
-				.updateTime(LocalDateTime.now())
-				.updateUser(BaseContext.getCurrentId())
 				.build();
 		employeeMapper.update(employee);
 	}
@@ -128,8 +115,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = new Employee();
 		//使用工具类将employeeDTO中的属性拷贝到employee中
 		BeanUtils.copyProperties(employeeDTO, employee);
-		employee.setUpdateUser(BaseContext.getCurrentId());
-		employee.setUpdateTime(LocalDateTime.now());
 		//重复调用update的xml文件去操作
 		employeeMapper.update(employee);
 	}
