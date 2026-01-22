@@ -1,17 +1,21 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.properties.JwtProperties;
+import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -91,5 +95,42 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 		
 		employeeMapper.add(employee);
+	}
+	
+	@Override
+	public PageResult page(EmployeePageQueryDTO employeePageQuery) {
+		PageHelper.startPage(employeePageQuery.getPage(), employeePageQuery.getPageSize());
+		Page<Employee> page = employeeMapper.page(employeePageQuery);
+		return new PageResult((long) page.getTotal(), page.getResult());
+	}
+	
+	@Override
+	public void startOrStop(Integer status, Long id) {
+		//使用builder进行构建对象,前提是该类有Builder注解
+		//且注意,这个构建是构建一个新的,而不能在原有基础去修改
+		Employee employee = Employee.builder()
+				.status(status)
+				.id(id)
+				.updateTime(LocalDateTime.now())
+				.updateUser(BaseContext.getCurrentId())
+				.build();
+		employeeMapper.update(employee);
+	}
+	
+	@Override
+	public Employee getById(Long id) {
+		Employee employee = employeeMapper.getById(id);
+		return employee;
+	}
+	
+	@Override
+	public void update(EmployeeDTO employeeDTO) {
+		Employee employee = new Employee();
+		//使用工具类将employeeDTO中的属性拷贝到employee中
+		BeanUtils.copyProperties(employeeDTO, employee);
+		employee.setUpdateUser(BaseContext.getCurrentId());
+		employee.setUpdateTime(LocalDateTime.now());
+		//重复调用update的xml文件去操作
+		employeeMapper.update(employee);
 	}
 }
