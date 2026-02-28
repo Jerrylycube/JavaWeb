@@ -6,8 +6,21 @@ sky:
     database: sky_take_out
     username: root
     password: 1234
+  #    使用系统环境变量获取阿里云账号和密码
   alioss:
     access-key-id: ${OSS_ACCESS_KEY_ID}
     access-key-secret: ${OSS_ACCESS_KEY_SECRET}
     endpoint: oss-cn-guangzhou.aliyuncs.com
     bucket-name: my-take-out-system
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 0
+  wechat:
+    appid: ${WECHAT_APPID}
+    secret: ${WECHAT_SECRET}
+  shop:
+    address: 北京市海淀区上地十街10号
+  baidu:
+    ak: ${BAIDU_AK}

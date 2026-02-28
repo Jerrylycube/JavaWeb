@@ -1,0 +1,4 @@
+Python 可以看这个 GitHub 仓库：
+好朋友 Jack 自己写的。
+
+https://github.com/Jack-Cherish/LeetCode

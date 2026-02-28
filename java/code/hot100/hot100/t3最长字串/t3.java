@@ -52,9 +52,9 @@ public class t3 {
         for (int j = 0; j <n; j++) {
             char tempS = s.charAt(j);
             while(set.contains(tempS)){
-                set.remove(s.charAt(i));
-                i++;
-            }
+				set.remove(s.charAt(i));
+				i++;
+			}
             set.add(tempS);
             result = Math.max(j-i+1,result);
         }
